@@ -1,0 +1,22 @@
+extends layout 
+
+block content
+    .card.text-white.bg-info.mb-3(style="max-width: 20rem;margin-top:2em;")
+        .card-header you are currently in the group:
+        .card-body
+            .card-title {group name}
+            p.card-text current memebers: 5
+    
+    .list-group
+
+    form.chat-form(action="")
+        fieldset
+            .form-group
+                label(for="exampleTextarea") text something here
+                textarea.form-control#exampleTextarea(spellcheck="false",rows="3",style="height:20vh;")
+            button(type="submit",class="btn btn-primary") Submit
+        
+        
+            
+
+
