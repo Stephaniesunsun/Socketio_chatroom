@@ -60,7 +60,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-const PORT =8080 || process.env.PORT;
+const PORT =process.env.PORT || 3000 ;
 server.listen(PORT,()=>console.log(`server is listening on port ${PORT}`));
 
 module.exports = app;
