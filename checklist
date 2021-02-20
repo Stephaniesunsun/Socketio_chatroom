@@ -1,0 +1,10 @@
+put username and chatroom- according to geolocation- into URL query
+grab the query in URL using QS library in app.js(qs cdn, put in the script tag in layout.jade)
+insert the username and chatroom into the server.
+build chatroom API, accessed by different geolocations
+
+
+maybe put those 2 pieces inside of containers.
+
+google location API
+https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&types=food&name=harbour&key=YOUR_API_KEY

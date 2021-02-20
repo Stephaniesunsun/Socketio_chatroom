@@ -6,10 +6,11 @@ const submitBtn=document.querySelector('.btn-primary');
 const inputField=document.querySelector('#exampleTextarea');
 const chatmessage=document.querySelector('.list-group-item-action');
 
+
 //listen the emit message on server side.    
-socket.on('message',message=>{//listen
+socket.on('message',messageObj=>{//listen
     //console.log(message)
-    outputMassage(message)
+    outputMassage(messageObj)
     //scroll down
     //chatmessage.scrollTop=chatmessage.scrollHeight;
 })
@@ -19,21 +20,26 @@ form.addEventListener("submit",e=>{
     //emit message to server
     socket.emit("chatMessage",input)
     //clear input
+    console.log(e.target.elements)
     e.target.elements[1].value=''
-    //e.target.elements.msg.value='';
+    e.target.elements[1].focus();
 }
 )
 
-const outputMassage=(message)=>{
+const outputMassage=(messageObj)=>{
+    const message=messageObj.text;
+    const time=messageObj.time;
+    const username=messageObj.username;
+
     const messageContainer=document.createElement('div');
     messageContainer.classList.add('list-group-item','list-group-item-action','flex-column','align-items-start')
     const messageFlex=document.createElement('div');
     messageFlex.classList.add('d-flex','w-100','justify-content-between')
     const user=document.createElement('h5');
     user.classList.add('mb-1');
-    user.innerText="Steph"
+    user.innerText=username;
     const timestamp=document.createElement('small');
-    timestamp.innerText="48 sec ago";
+    timestamp.innerText=time;
     const messageBody=document.createElement('p');
     messageBody.classList.add('mb-1');
     messageBody.innerText=message;

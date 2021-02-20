@@ -6,12 +6,18 @@ const logger = require('morgan');
 const http=require('http');
 const socketio=require('socket.io');
 
+//const {username, room}= Qs.parse(location.search,{
+  //ignoreQueryPrefix : true
+//});
 const app = express();
 const server=http.createServer(app);
 const io=socketio(server);
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const messageFormatting = require('./tools/message');
+ //get username and room from URL
+var myName="BOT";
 
 io.logger=true;
 io.engineio_logger=true;
@@ -28,16 +34,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 io.sockets.on('connection',socket=>{
    //welcome current user
-   socket.emit('message','Hello everybody')
+   socket.emit('message',messageFormatting(myName,'Hello everybody'))
    //broadcast when a user connects
-   socket.broadcast.emit('message','a user has joined the chat');
+   socket.broadcast.emit('message',messageFormatting(myName,'a user has joined the chat'));
    //runs when client disconnects
    socket.on('disconnect',()=>{
-     io.emit('message','a user has left the chat')
+     io.emit('message',messageFormatting(myName,'a user has left the chat'))
    });
    //listen to new msg
    socket.on('chatMessage',(message)=>{
-    io.emit('message',message) //emit back to all the clients
+    io.emit('message',messageFormatting('username',message)) //emit back to all the clients
    })
 })
 
