@@ -8,7 +8,6 @@ if(navigator.geolocation){
 }
 window.onload=function(){
     var startPos;
-    
     var geoSuccess=function(position){
         startPos=position;
         lat.innerText=startPos.coords.latitude;
