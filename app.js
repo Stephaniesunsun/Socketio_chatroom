@@ -6,6 +6,7 @@ const logger = require('morgan');
 const http=require('http');
 const socketio=require('socket.io');
 
+
 //const {username, room}= Qs.parse(location.search,{
   //ignoreQueryPrefix : true
 //});
@@ -14,7 +15,7 @@ const server=http.createServer(app);
 const io=socketio(server);
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const landingRouter = require('./routes/landing');
 const messageFormatting = require('./tools/message');
  //get username and room from URL
 var myName="BOT";
@@ -48,7 +49,7 @@ io.sockets.on('connection',socket=>{
 })
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/landing', landingRouter);
 //run when client connects
 
 // catch 404 and forward to error handler

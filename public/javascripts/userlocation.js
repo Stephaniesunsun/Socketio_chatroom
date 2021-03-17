@@ -1,15 +1,19 @@
-const getLocation=()=>{
-    var options={
-        enableHighAccuracy : true,
-        timeout : 5000,
-        maximumAge : 0
-    };
-    var success=pos=>{
-        console.log(`latitude: ${crd.latitude}`);
-        console.log(`longitude: ${crd.longitude}`);
-    };
-    var error=err=>{
-        console.warn(`ERROR(${err.code}):${err.message}`);
-    };
-    navigator.geolocation.getCurrentPosition(success,error,options);
+const lat=document.querySelector('.startLat');
+const long=document.querySelector('.startLon');
+
+if(navigator.geolocation){
+    console.log('geolocation is supported!')
+}else{
+    console.log('browser does not support geolocation');
 }
+window.onload=function(){
+    var startPos;
+    
+    var geoSuccess=function(position){
+        startPos=position;
+        lat.innerText=startPos.coords.latitude;
+        long.innerText=startPos.coords.longitude;
+    };
+    navigator.geolocation.getCurrentPosition(geoSuccess);
+    console.log(position)
+};

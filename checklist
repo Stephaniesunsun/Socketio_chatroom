@@ -1,3 +1,4 @@
+
 put username and chatroom- according to geolocation- into URL query
 grab the query in URL using QS library in app.js(qs cdn, put in the script tag in layout.jade)
 insert the username and chatroom into the server.

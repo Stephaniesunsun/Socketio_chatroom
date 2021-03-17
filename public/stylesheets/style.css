@@ -3,6 +3,6 @@ body {
   padding: 0;
   height: 100vh;
 }
-.footer {
-  margin-top: 3em;
+.container.footer {
+  margin-top: auto;
 }
