@@ -7,9 +7,6 @@ const http=require('http');
 const socketio=require('socket.io');
 
 
-//const {username, room}= Qs.parse(location.search,{
-  //ignoreQueryPrefix : true
-//});
 const app = express();
 const server=http.createServer(app);
 const io=socketio(server);
@@ -17,8 +14,9 @@ const io=socketio(server);
 const indexRouter = require('./routes/index');
 const landingRouter = require('./routes/landing');
 const messageFormatting = require('./tools/message');
- //get username and room from URL
-var myName="BOT";
+const {Join,getUser,leave,getRoomUsers}=require('./tools/user');
+
+var username="BOT";
 
 io.logger=true;
 io.engineio_logger=true;
@@ -33,23 +31,44 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+var username="BOT";
+
+//then we need to emit this two paras into server
 io.sockets.on('connection',socket=>{
-   //welcome current user
-   socket.emit('message',messageFormatting(myName,'Hello everybody'))
-   //broadcast when a user connects
-   socket.broadcast.emit('message',messageFormatting(myName,'a user has joined the chat'));
-   //runs when client disconnects
-   socket.on('disconnect',()=>{
-     io.emit('message',messageFormatting(myName,'a user has left the chat'))
-   });
+  socket.on('joinRoom',({username,room})=>{
+    const user=Join(socket.id,username,room);
+    socket.join(user.room);
+    //welcome current user
+    socket.emit('message',messageFormatting(user.username,'Hello everybody'))
+    //broadcast when a user connects
+    socket.broadcast.to(user.room).emit('message',messageFormatting(username,`${user.username} has joined the chat`));
+    //send user and room info
+    io.to(user.room).emit('roomUsers',{
+      room:user.room,
+      users:getRoomUsers(user.room)
+    });
+});
    //listen to new msg
-   socket.on('chatMessage',(message)=>{
-    io.emit('message',messageFormatting('username',message)) //emit back to all the clients
-   })
+  socket.on('chatMessage',(message)=>{
+    const user=getUser(socket.id);
+    io.to(user.room).emit('message',messageFormatting(user.username,message)) //emit back to all the clients
+ })
+ //runs when client disconnects
+  socket.on('disconnect',()=>{ 
+    const user=leave(socket.id);
+    if(user){
+      io.to(user.room).emit('message',messageFormatting(user.username,`${user.username} has left the chat`))
+      //send user and room info
+      io.to(user.room).emit('roomUsers',{
+        room:user.room,
+        users:getRoomUsers(user.room)
+    });
+    }
+  })
 })
 
-app.use('/', indexRouter);
-app.use('/landing', landingRouter);
+app.use('/room', indexRouter);
+app.use('/', landingRouter);
 //run when client connects
 
 // catch 404 and forward to error handler

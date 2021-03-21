@@ -1,8 +1,65 @@
-body {
-  margin: 0;
+@import url("https://fonts.googleapis.com/css2?family=Pangolin&family=Ubuntu:wght@300&display=swap");
+*,
+*::before,
+*::after {
   padding: 0;
-  height: 100vh;
+  margin: 0;
+  box-sizing: border-box;
 }
-.container.footer {
-  margin-top: auto;
+
+body {
+  overflow-y: auto;
+  margin: 0;
+  background-color: #5485bd;
+  color: #ffffff;
+  font-family: "Ubuntu", "san-serif";
+  font-size: 1.2em;
+}
+
+h1 {
+  display: block;
+  font-family: "Pangolin", "san-serif";
+  line-height: 1.2em;
+}
+
+.main-contain {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3em;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+.container .submit-btn {
+  background-color: #f9d951;
+  color: #000000;
+  border: none;
+  padding: 1.5em 3em;
+  font-family: "Ubuntu", "san-serif";
+  font-size: 0.7em;
+  margin: 1em auto;
+  display: block;
+  cursor: pointer;
+}
+.container label {
+  display: block;
+  width: 100%;
+}
+.container select {
+  appearance: none;
+  background-image: inner-gradient(120deg, #5485bd, #ffffff);
+  border: 1px solid;
+  border-radius: 0.25em;
+  padding: 0.25em 0.53em;
+  margin: 0;
+  cursor: pointer;
+  width: 100%;
+}
+.container option {
+  font-family: "Ubuntu", "san-serif";
 }

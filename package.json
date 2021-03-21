@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@react-native-community/geolocation": "^2.0.2",
+    "body-parser": "^1.19.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
@@ -15,6 +16,7 @@
     "jade": "~1.11.0",
     "moment": "^2.29.1",
     "morgan": "~1.9.1",
+    "multer": "^1.4.2",
     "socket.io": "^3.1.0"
   }
 }

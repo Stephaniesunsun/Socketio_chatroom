@@ -1,10 +1,20 @@
 extends layout 
 
 block content
-    .title Welcome!
-        .user Here's your location information
-            p.startLat
-            p.startLon
-            
+    .main-contain
+        h1 EASY CHAT WITH FRIENDS
+        form(action="/room",method="GET")
+            .container Name:
+                input.user-name(type="text",name="username",required) 
+                .interest
+                    label(for="interest") Choose a chat room:
+                    select.room-name(name="room")
+                        option(value="computer-networking") Computer Networking
+                        option(value="algorithm") Algorithm
+                        option(value="web-development") Web Development
+                        option(value="cyber-security") Cyber Security
+                input.submit-btn(type="submit",value="Start Chatting!")
+    
+
     script(src="../javascripts/userlocation.js")
     

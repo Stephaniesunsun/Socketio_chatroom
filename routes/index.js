@@ -5,7 +5,7 @@ const router = express.Router();
 
 
 router.get('/', function(req, res, next) {
-  res.render('chatroom', { title: 'Express' });
+  res.render('chatroom', { title: 'EMeet' });
   console.log("hello")
 });
 
